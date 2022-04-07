@@ -28,6 +28,11 @@ namespace WebApplication8.Controllers
 
         public IActionResult Privacy()
         {
+            var result = _smsService.Send(new SmsModel()
+            {
+                TelefonNo = "12345",
+                Mesaj = "home/index çalıştı"
+            });
             return View();
         }
 
