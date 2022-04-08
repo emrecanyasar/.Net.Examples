@@ -10,11 +10,13 @@ namespace MVC101.Controllers
     {
         private readonly ISmsService _smsService;
         private readonly IEmailServices _emailService;
+        private readonly IWebHostEnvironment _appEnvironment;
 
-        public HomeController(ISmsService smsService, IEmailServices emailService)
+        public HomeController(ISmsService smsService, IEmailServices emailService, IWebHostEnvironment appEnvironment)
         {
             _smsService = smsService;
             _emailService = emailService;
+            _appEnvironment = appEnvironment;
         }
 
         public IActionResult Index()
@@ -24,18 +26,28 @@ namespace MVC101.Controllers
                 TelefonNo = "12345",
                 Mesaj = "home/index çalıştı"
             });
+
+            var wissenSms = (WissenSmsService)_smsService;
+            Debug.WriteLine(wissenSms.EndPoint);
+
+            var fileStream = new FileStream(@$"{_appEnvironment.WebRootPath}\files\portre.jpeg", FileMode.Open);
+
             _emailService.SendMailAsync(new MailModel()
             {
                 To = new List<EmailModels>()
                 {
                     new EmailModels()
                     {
-                        Name ="Emrecan",
-                        Adress = "emrecanyasar1@outlook.com"
+                        Name = "Wissen",
+                        Adress = "site@wissenakademie.com"
                     }
                 },
-                Subject = "Ah be Serkanım be ahh....",
-                Body = ":rocket: Just for you :rocket: "
+                Subject = "Index Açıldı",
+                Body = "Bu emailin body kısmıdır",
+                Attachs = new List<Stream>()
+                {
+                    fileStream
+                }
             });
 
             return View();
@@ -43,6 +55,12 @@ namespace MVC101.Controllers
 
         public IActionResult Privacy()
         {
+            var result = _smsService.Send(new SmsModel()
+            {
+                TelefonNo = "12345",
+                Mesaj = "home/index çalıştı"
+            });
+
             return View();
         }
 

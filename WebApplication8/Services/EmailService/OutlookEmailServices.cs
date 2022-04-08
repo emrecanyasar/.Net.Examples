@@ -9,7 +9,7 @@ namespace WebApplication8.Services.EmailService
     public class OutlookEmailService : IEmailServices
     {
         public string SenderMail => "wissen.akademie@outlook.com";
-        public string Password => "123456789123456789abc";
+        public string Password => "1-9x2+abc";
         public string Smtp => "smtp-mail.outlook.com";
         public int SmtpPort => 587;
 
@@ -35,7 +35,10 @@ namespace WebApplication8.Services.EmailService
             {
                 foreach (var attach in model.Attachs)
                 {
-                    //mail.Attachments.Add(new Attachment(attach));
+                    var fileStream = attach as FileStream;
+                    var info = new FileInfo(fileStream.Name);
+
+                    mail.Attachments.Add(new Attachment(attach, info.Name));
                 }
             }
 
