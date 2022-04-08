@@ -30,13 +30,8 @@ namespace MVC101.Controllers
                 {
                     new EmailModels()
                     {
-                        Name ="Wissen",
-                        Adress = "akcaymert603@gmail.com"
-                    },
-                    new EmailModels()
-                    {
-                        Name ="Serkan",
-                        Adress = "srknozsoz@gmail.com"
+                        Name ="Emrecan",
+                        Adress = "emrecanyasar1@outlook.com"
                     }
                 },
                 Subject = "Ah be Serkanım be ahh....",
