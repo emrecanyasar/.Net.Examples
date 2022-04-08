@@ -11,12 +11,19 @@ namespace MVC101.Controllers
         private readonly ISmsService _smsService;
         private readonly IEmailServices _emailService;
         private readonly IWebHostEnvironment _appEnvironment;
+        private readonly IServiceProvider _serviceProvider;
+        private int id;
 
-        public HomeController(ISmsService smsService, IEmailServices emailService, IWebHostEnvironment appEnvironment)
+        public HomeController(ISmsService smsService,
+            IEmailServices emailService,
+            IWebHostEnvironment appEnvironment,
+            IServiceProvider serviceProvider)
         {
             _smsService = smsService;
             _emailService = emailService;
             _appEnvironment = appEnvironment;
+            _serviceProvider = serviceProvider;
+
         }
 
         public IActionResult Index()
@@ -30,7 +37,17 @@ namespace MVC101.Controllers
             var wissenSms = (WissenSmsService)_smsService;
             Debug.WriteLine(wissenSms.EndPoint);
 
-            var fileStream = new FileStream(@$"{_appEnvironment.WebRootPath}\files\portre.jpeg", FileMode.Open);
+            IEmailServices emailServices;
+            if (id % 2 ==0)
+            {
+                emailServices = _serviceProvider.GetService<SendGridEmailService>();
+            }
+            else
+            {
+                emailServices = _serviceProvider.GetService<OutlookEmailService>();
+            }
+
+            //var fileStream = new FileStream(@$"{_appEnvironment.WebRootPath}\files\jpeg.png", FileMode.Open);
 
             _emailService.SendMailAsync(new MailModel()
             {
@@ -44,10 +61,10 @@ namespace MVC101.Controllers
                 },
                 Subject = "Index Açıldı",
                 Body = "Bu emailin body kısmıdır",
-                Attachs = new List<Stream>()
-                {
-                    fileStream
-                }
+                //Attachs = new List<Stream>()
+                //{
+                //    fileStream
+                //}
             });
 
             return View();

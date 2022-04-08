@@ -8,11 +8,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<ISmsService, WissenSmsService>();
-//builder.Services.AddSendGrid(options =>
-//{
-//    options.ApiKey = "Api-Key";
-//});
-builder.Services.AddScoped<IEmailServices, OutlookEmailService>();
+builder.Services.AddSendGrid(options =>
+{
+    options.ApiKey = "Api-Key";
+});
+builder.Services.AddScoped<SendGridEmailService>().AddScoped<IEmailServices,SendGridEmailService>(s=>s.GetService<SendGridEmailService>());
+builder.Services.AddScoped<OutlookEmailService>().AddScoped<IEmailServices, OutlookEmailService>(s => s.GetService<OutlookEmailService>());
+
 
 builder.Services.AddControllersWithViews();
 
