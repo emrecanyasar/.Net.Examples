@@ -39,7 +39,7 @@ namespace MVC101.Controllers
                     new EmailModels()
                     {
                         Name = "Wissen",
-                        Adress = "site@wissenakademie.com"
+                        Adress = "emrecanyasar1@outlook.com"
                     }
                 },
                 Subject = "Index Açıldı",
