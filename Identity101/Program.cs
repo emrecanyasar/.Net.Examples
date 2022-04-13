@@ -40,7 +40,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
-builder.Services.AddTransient<IEmailServices, OutlookEmailServices>();
+builder.Services.AddTransient<IEmailServices, SmtpEmailServices>();
 builder.Services.AddControllersWithViews();
 
 
