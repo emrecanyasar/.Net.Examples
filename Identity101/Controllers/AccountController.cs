@@ -182,13 +182,15 @@ public class AccountController : Controller
     {
         return View();
     }
+
     [HttpPost]
-    public async Task<IActionResult> ResetPassword(String email)
+    public async Task<IActionResult> ResetPassword(string email)
     {
-        var user = await _userManager.FindByNameAsync(email);
+        var user = await _userManager.FindByEmailAsync(email);
+
         if (user == null)
         {
-            ViewBag.Message = "Girdiğiniz email sistemimizde bulunamadı";
+            ViewBag.Message = "Mailinize Şifre güncelleme yönergemiz gönderilmiştir";
         }
         else
         {
@@ -205,15 +207,56 @@ public class AccountController : Controller
                         { Adress = user.Email, Name = user.UserName }
                 },
                 Body =
-                     $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.",
+                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.",
                 Subject = "Reset Password"
             };
 
             await _emailService.SendMailAsync(emailMessage);
 
             ViewBag.Message = "Mailinize Şifre güncelleme yönergemiz gönderilmiştir";
-
         }
+
         return View();
+    }
+
+    [HttpGet]
+    public IActionResult ConfirmResetPassword(string userId,string code)
+    {
+        if (string.IsNullOrEmpty(userId)||string.IsNullOrEmpty(code))
+        {
+            return BadRequest("Hatalı istek");
+        }
+        ViewBag.Code = code;
+        ViewBag.UserId=userId;
+        return View();
+    }
+    [HttpPost]
+    public async Task<IActionResult> ConfirmResetPassword(ResetPasswordViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
+        var user=await _userManager.FindByIdAsync(model.UserId);
+
+        if (user==null)
+        {
+            ModelState.AddModelError(string.Empty, errorMessage: "Kullanıcı bulunamadı");
+            return View();
+        }
+        var code=Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(model.Code));
+        var result = await _userManager.ResetPasswordAsync(user, token: code, model.NewPassword);
+        if (result.Succeeded)
+        {
+            TempData["Message"] = "Şifre değişikliğiniz gerçekleşmiştir";
+            return View();
+        }
+        else
+        {
+            var message = string.Join("<br>", result.Errors.Select(x=>x.Description));
+            TempData["Message"] = message;
+            return View();
+        }
     }
 }
