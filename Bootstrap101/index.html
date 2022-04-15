@@ -9,7 +9,30 @@
 
 </head>
 <body>
-    <div class="container">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="txtUserName" placeholder="UserName">
+                    <label for="txtUserName">UserName</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="txtEmail" placeholder="name@example.com">
+                    <label for="txtEmail">Email address</label>
+                </div>                
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="txtPassword" placeholder="Password">
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="txtConfirmPassword" placeholder="Password">
+                    <label for="txtConfirmPassword">Confirm Password</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="button" class="btn btn-success" id="btnKaydet" value="Register" onclick="kontrol()"/>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-6 col-sm-6">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda ad aliquid minus saepe nemo quo modi. Accusamus illo voluptate debitis fuga dignissimos perspiciatis laboriosam delectus beatae provident explicabo dolore, placeat perferendis ipsum tempore dolores consequuntur quod repellat nemo est mollitia in praesentium? Reiciendis aperiam aut adipisci magnam ullam perspiciatis nihil nesciunt numquam tenetur nulla rerum in libero nam, nobis ratione.
@@ -21,11 +44,25 @@
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat aperiam architecto quae ratione perspiciatis vel perferendis impedit dolorum veniam maiores. Nam eligendi officia ipsum harum facilis a corporis quidem doloribus reprehenderit aut aliquam cumque quaerat voluptate nostrum officiis commodi, et tenetur beatae eveniet labore odit itaque nulla. Dolores, saepe esse at ex non mollitia, laborum earum, perferendis libero consequuntur soluta.
         </div>
     </div>
-    <style>
+    <!-- <style>
         div{
             border:1px solid #000;
         }
-    </style>
+    </style> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script>
+        function kontrol(){
+            var password =document.getElementById("txtPassword").value;
+            var txtConfirmPassword=document.getElementById("txtConfirmPassword").value;
+            if(password.lenght<6){
+                alert("sifre en az 6 haneli olmalıdır.");
+                return;
+            }
+            if(password!=ConfirmPassword){
+                alert("şifreler uyuşmuyor");
+                return;
+            }
+       }
+    </script>
 </body>
 </html>
