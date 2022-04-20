@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using System.Net.Mail;
 using System.Text;
 using AdminTemplate.Models.Configuration;
@@ -6,11 +6,11 @@ using AdminTemplate.Models.Email;
 
 namespace AdminTemplate.Services.Email;
 
-public class SmtpEmailServices : IEmailServices
+public class SmtpEmailService : IEmailService
 {
     private readonly IConfiguration _configuration;
 
-    public SmtpEmailServices(IConfiguration configuration)
+    public SmtpEmailService(IConfiguration configuration)
     {
         _configuration = configuration;
         this.EmailSettings = _configuration.GetSection("GmailSettings").Get<EmailSettings>();

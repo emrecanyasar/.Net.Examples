@@ -1,4 +1,4 @@
-﻿using AdminTemplate.Entities.Abstract;
+using AdminTemplate.Models.Entities.Abstracts;
 
 namespace AdminTemplate.Models.Entities;
 

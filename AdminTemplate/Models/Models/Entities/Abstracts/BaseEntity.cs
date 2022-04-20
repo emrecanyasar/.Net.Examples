@@ -1,11 +1,10 @@
-﻿namespace AdminTemplate.Entities.Abstract;
+namespace AdminTemplate.Models.Entities.Abstracts;
 
-public class BaseEntity<T> where T : IEquatable<T>
+public abstract class BaseEntity<T> where T : IEquatable<T>
 {
     public T Id { get; set; }
     public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
-
     public string CreatedUser { get; set; }
-    public DateTime? UpdateDate { get; set; }
+    public DateTime? UpdatedDate { get; set; }
     public string? UpdatedUser { get; set; }
 }

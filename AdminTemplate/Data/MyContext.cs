@@ -1,4 +1,3 @@
-﻿using AdminTemplate.Entities;
 using AdminTemplate.Models.Entities;
 using AdminTemplate.Models.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -38,13 +37,13 @@ public sealed class MyContext : IdentityDbContext<ApplicationUser, ApplicationRo
             entity.Property(x => x.Name).IsRequired().HasMaxLength(50);
             entity.Property(x => x.Description).IsRequired(false).HasMaxLength(250);
         });
-
+        
         builder.Entity<Product>(entity =>
         {
             entity.HasIndex(x => x.Id);
             entity.Property(x => x.Id).HasDefaultValue(Guid.NewGuid());
             entity.HasOne(x => x.Category)
-                .WithMany(x => x.Products)
+                .WithMany(x=>x.Products)
                 .HasForeignKey(x => x.CategoryId);
             entity.Property(x => x.Name).IsRequired().HasMaxLength(50);
             entity.Property(x => x.UnitPrice).HasPrecision(8, 2);

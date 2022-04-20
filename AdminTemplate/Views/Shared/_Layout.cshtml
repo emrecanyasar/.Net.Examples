@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="tr" dir="ltr">
 <head>
     <meta charset="UTF-8">
@@ -39,55 +39,56 @@
 
 </head>
 <body class="">
-    <div id="global-loader"></div>
-    <div class="page">
-        <div class="page-main">
-            <partial name="_HeaderPartial"/>
-            <div class="wrapper">
-                <!-- Sidebar Holder -->
-                <partial name="_SidebarPartial"/>
-                <div class=" content-area">
-                    <div class="page-header">
-                        <h4 class="page-title">@ViewBag.Title</h4>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    @RenderBody()
-                                </div>
+<div id="global-loader"></div>
+<div class="page">
+    <div class="page-main">
+        <partial name="_AppHeaderPartial"/>
+        <div class="wrapper">
+            <!-- Sidebar Holder -->
+            <partial name="_SidebarPartial"/>
+            <div class=" content-area">
+                <div class="page-header">
+                    <h4 class="page-title">@ViewBag.Title</h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                @RenderBody()
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!--footer-->
-       <partial name="_FooterPartial"/>
-        <!-- End Footer-->
     </div>
+    <!--footer-->
+    <partial name="_FooterPartial"/>
+    <!-- End Footer-->
+</div>
 
-    <!-- BAck to top -->
-    <a href="#top" id="back-to-top" style="display: inline;"><i class="fa fa-angle-up"></i></a>
+<!-- BAck to top -->
+<a href="#top" id="back-to-top" style="display: inline;">
+    <i class="fa fa-angle-up"></i>
+</a>
 
-    <!-- Dashboard js -->
-    <script src="..\..\assets\js\vendors\jquery-3.2.1.min.js"></script>
-    <script src="..\..\assets\js\vendors\bootstrap.bundle.min.js"></script>
-    <script src="..\..\assets\js\vendors\jquery.sparkline.min.js"></script>
-    <script src="..\..\assets\js\vendors\selectize.min.js"></script>
-    <script src="..\..\assets\js\vendors\jquery.tablesorter.min.js"></script>
-    <script src="..\..\assets\js\vendors\circle-progress.min.js"></script>
-    <script src="..\..\assets\plugins\rating\jquery.rating-stars.js"></script>
+<!-- Dashboard js -->
+<script src="..\..\assets\js\vendors\jquery-3.2.1.min.js"></script>
+<script src="..\..\assets\js\vendors\bootstrap.bundle.min.js"></script>
+<script src="..\..\assets\js\vendors\jquery.sparkline.min.js"></script>
+<script src="..\..\assets\js\vendors\selectize.min.js"></script>
+<script src="..\..\assets\js\vendors\jquery.tablesorter.min.js"></script>
+<script src="..\..\assets\js\vendors\circle-progress.min.js"></script>
+<script src="..\..\assets\plugins\rating\jquery.rating-stars.js"></script>
 
-    <!-- Fullside-menu Js-->
-    <script src="..\..\assets\plugins\fullside-menu\jquery.slimscroll.min.js"></script>
-    <script src="..\..\assets\plugins\fullside-menu\waves.min.js"></script>
+<!-- Fullside-menu Js-->
+<script src="..\..\assets\plugins\fullside-menu\jquery.slimscroll.min.js"></script>
+<script src="..\..\assets\plugins\fullside-menu\waves.min.js"></script>
 
-    <!-- Custom scroll bar Js-->
-    <script src="..\..\assets\plugins\scroll-bar\jquery.mCustomScrollbar.concat.min.js"></script>
+<!-- Custom scroll bar Js-->
+<script src="..\..\assets\plugins\scroll-bar\jquery.mCustomScrollbar.concat.min.js"></script>
 
-    <!-- Custom Js-->
-    <script src="..\..\assets\js\custom.js"></script>
+<!-- Custom Js-->
+<script src="..\..\assets\js\custom.js"></script>
 </body>
 </html>

@@ -5,32 +5,30 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
-var app = builder.Build();
-
 var con1 = builder.Configuration.GetConnectionString("con1");
 builder.Services.AddDbContext<MyContext>(options => options.UseSqlServer(con1));
-
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
-{
-    // Password settings.
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequiredLength = 6;
-    options.Password.RequiredUniqueChars = 1;
+    {
+        // Password settings.
+        options.Password.RequireDigit = true;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequiredLength = 6;
+        options.Password.RequiredUniqueChars = 1;
 
-    // Lockout settings.
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-    options.Lockout.MaxFailedAccessAttempts = 3;
-    options.Lockout.AllowedForNewUsers = false;
+        // Lockout settings.
+        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+        options.Lockout.MaxFailedAccessAttempts = 3;
+        options.Lockout.AllowedForNewUsers = false;
 
-    // User settings.
-    options.User.AllowedUserNameCharacters =
-        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._";
-    options.User.RequireUniqueEmail = true;
-}).AddEntityFrameworkStores<MyContext>().AddDefaultTokenProviders(); ;
+        // User settings.
+        options.User.AllowedUserNameCharacters =
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._";
+        options.User.RequireUniqueEmail = true;
+    }).AddEntityFrameworkStores<MyContext>()
+    .AddDefaultTokenProviders();
+;
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -43,7 +41,10 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
-builder.Services.AddTransient<IEmailServices, SmtpEmailServices>();
+builder.Services.AddTransient<IEmailService, SmtpEmailService>();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -68,6 +69,5 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-//app.MapRazorPages();
 
 app.Run();
