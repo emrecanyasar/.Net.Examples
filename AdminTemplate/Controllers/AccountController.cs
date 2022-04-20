@@ -143,7 +143,7 @@ public class AccountController : Controller
 
         if (result.Succeeded)
         {
-            return RedirectToAction("UserProfile", "Account");
+            return RedirectToAction("Profile", "Account");
         }
         else if (result.IsLockedOut)
         {
